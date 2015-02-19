@@ -1,0 +1,7 @@
+{% extends "OroUIBundle:Default:index.html.twig" %}
+{% import 'OroDataGridBundle::macros.html.twig' as dataGrid %}
+{% block content %}
+    <div class="widget-content">
+        {{ dataGrid.renderGrid("test_items_grid") }}
+    </div>
+{% endblock content %}

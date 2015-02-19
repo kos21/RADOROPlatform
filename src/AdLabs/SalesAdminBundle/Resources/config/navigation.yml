@@ -1,0 +1,31 @@
+oro_menu_config:
+    items:
+        sales:
+            label: Sales
+            uri:   '#'
+            extras:
+                position: 300
+        items:
+            label: Items
+            route: items
+            extras:
+                routes: ['/^items/']
+                description: My description
+#        catalogues:
+#            label: Catalogues
+#        attributes:
+#            label: Attributes
+    tree:
+        application_menu:
+            children:
+                sales:
+                    children:
+                        items: ~
+#                        catalogues: ~
+#                        attributes: ~
+
+oro_titles:
+    items: My link page title
+    adlabs_salesadminbundle_items_view: "%%items.name%%"
+#    catalogues: My link page title
+#    attributes: My link page title

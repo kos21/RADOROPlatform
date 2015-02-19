@@ -1,0 +1,20 @@
+AdLabs\SalesAdminBundle\Entity\Catalogues:
+    type: entity
+    table: Catalogues
+    repositoryClass: AdLabs\SalesAdminBundle\Repository\CataloguesRepository
+    fields:
+        cataloguesId:
+          id: true
+          type: integer
+          length: 11
+          nullable: false
+          unsigned: true
+          unique: true
+          column: catalogue_id
+          generator:
+            strategy: AUTO
+        name:
+          type: string
+          length: 255
+          nullable: true
+          unsigned: true

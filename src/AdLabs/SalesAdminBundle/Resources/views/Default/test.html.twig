@@ -1,0 +1,29 @@
+{% import 'OroUIBundle::macros.html.twig' as ui %}
+{% import 'OroEntityConfigBundle::macros.html.twig' as entityConfig %}
+<div class="widget-content">
+    <div class="row-fluid form-horizontal">
+        <div class="responsive-block">
+            {{ ui.renderProperty('name'|trans, entity.name) }}
+
+            {%- if entity.name and resource_granted('VIEW', entity.id) -%}
+                {% set contactView = ui.renderUrl(path('orocrm_contact_view', {'id': entity.id}), entity.name|oro_format_name) %}
+            {%- else -%}
+                {% set contactView = entity.name ? entity.name|oro_format_name|escape : '' %}
+            {%- endif -%}
+
+            {{ ui.renderHtmlProperty('contact'|trans, contactView) }}
+
+            {%- if resource_granted('orocrm_sales_b2bcustomer_view') and entity.customer -%}
+                {% set customerView = '<a href="' ~ path('view_customer', {'id': entity.customer.id}) ~ '">' ~ entity.customer|escape ~ '</a>' %}
+            {%- else -%}
+                {% set customerView = entity.name ? entity.name|escape : '' %}
+            {%- endif -%}
+
+            {{ ui.renderHtmlProperty('customerView'|trans, customerView) }}
+            {{ ui.renderProperty('name'|trans, entity.name|length ? entity.name : '') }}
+            {{ ui.renderProperty('contact'|trans, entity.name|length ? entity.name, '') }}
+
+            {{ entityConfig.renderDynamicFields(entity) }}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,3 @@
+sales_admin:
+    resource:     "@AdLabsSalesAdminBundle/Controller"
+    type:         annotation

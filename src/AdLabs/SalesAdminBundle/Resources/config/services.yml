@@ -1,0 +1,14 @@
+imports:
+      - { resource: form.yml }
+
+parameters:
+#    ad_labs_sales_admin.example.class: AdLabs\SalesAdminBundle\Example
+services:
+#    ad_labs_sales_admin.example:
+#        class: %ad_labs_sales_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    acme_task.event_listener.acme_tasks_grid_parameter_listener:
+        class: %oro_datagrid.event_listener.row_selection.class%
+        tags:
+            - { name: kernel.event_listener, event: oro_datagrid.datagrid.build.after.acme-tasks-grid, method: onBuildAfter }

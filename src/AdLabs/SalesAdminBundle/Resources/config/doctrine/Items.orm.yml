@@ -1,0 +1,44 @@
+AdLabs\SalesAdminBundle\Entity\Items:
+    type: entity
+    table: Items
+    repositoryClass: AdLabs\SalesAdminBundle\Repository\ItemsRepository
+    form:
+      form_type: "adlabs_salesadminbundle_items"
+      grid_name: "test_items_grid"
+    fields:
+        id:
+          id: true
+          type: integer
+          length: 11
+          nullable: false
+          unsigned: true
+          unique: true
+          column: item_id
+          generator:
+            strategy: AUTO
+        name:
+          type: string
+          length: 255
+          nullable: true
+          unsigned: true
+        brand:
+          type: string
+          length: 255
+          nullable: true
+          unsigned: true
+        createdAt:
+          type: datetime
+        updatedAt:
+          type: datetime
+
+    manyToMany:
+        catalogues:
+            targetEntity: AdLabs\SalesAdminBundle\Entity\Catalogues
+            joinTable:
+                name: items_catalogues
+                joinColumns:
+                    item_id:
+                        referencedColumnName: item_id
+                inverseJoinColumns:
+                    catalogue_id:
+                        referencedColumnName: catalogue_id

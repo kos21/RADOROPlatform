@@ -1,0 +1,77 @@
+{% extends 'OroUIBundle:actions:view.html.twig' %}
+
+{% set pageTitle = "dadasdas" %}
+{% block navButtons %}
+    {% if resource_granted('EDIT', entity) %}
+        {{ UI.editButton({
+            'path': path('update_items', {'id': entity.id}),
+            'entity_label': 'Name Entity'|trans
+        }) }}
+    {% endif %}
+    {% if resource_granted('DELETE', entity) %}
+        {{ UI.deleteButton({
+            'dataUrl': path('items_view', {'id': entity.id}),
+            'dataRedirect': path('items'),
+            'aCss': 'no-hash remove-button',
+            'dataId': entity.id,
+            'id': 'btn-remove-account',
+            'entity_label': 'orocrm.account.entity_label'|trans
+        }) }}
+    {% endif %}
+{% endblock navButtons %}
+
+{% block pageHeader %}
+    {% set breadcrumbs = {
+    'entity': entity,
+    'indexPath': path('items'),
+    'indexLabel': 'orocrm.account.entity_plural_label'|trans,
+    'entityTitle': entity.name|default('N/A')
+    } %}
+    {{ parent() }}
+{% endblock pageHeader %}
+
+{% block stats %}
+    {{ parent() }}
+    <li>
+        <div class="label label-info orocrm-channel-lifetime-value-label">
+            {{ 'active'|trans }}:
+            {#{{ orocrm_channel_account_lifetime(entity)|oro_format_currency }}#}
+        </div>
+    </li>
+{% endblock stats %}
+
+
+{% block content_data %}
+
+    {% set informationWidget %}
+    {{ oro_widget_render({
+        'widgetType': 'block',
+        'url': path('info', { 'id': entity.id }),
+    }) }}
+    {% endset %}
+
+    {% set dataBlocks = [
+    {
+    'title': 'General Information',
+    'class': 'active',
+    'subblocks': [{'data' : [informationWidget] }]
+    }]%}
+
+    {% if entity %}
+        {% set opportunityInfoWidget %}
+        {{ oro_widget_render({
+            'widgetType': 'block',
+            'url': path('sales', { id: entity.id })
+        })}}
+        {% endset %}
+
+        {% set dataBlocks = dataBlocks|merge([{
+            "title": "dadasdssa",
+            "subblocks": [ {"data": [ opportunityInfoWidget ]} ]
+        }]) %}
+    {% endif %}
+
+    {% set id = 'salesFunnelView' %}
+    {% set data = {'dataBlocks': dataBlocks} %}
+    {{ parent() }}
+{% endblock content_data %}

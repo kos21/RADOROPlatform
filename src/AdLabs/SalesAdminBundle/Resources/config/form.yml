@@ -1,0 +1,31 @@
+parameters:
+    sales_admin.items.form.type.class: AdLabs\SalesAdminBundle\Form\Type\ItemsType
+    sales_admin.items.form.type.api.class: AdLabs\SalesAdminBundle\Form\Type\ItemsTypeApi
+    sales_admin.items.form.handler.class: AdLabs\SalesAdminBundle\Form\Handler\ItemsHandler
+
+services:
+    sales_admin.items.form.type:
+        class: %sales_admin.items.form.type.class%
+        tags:
+          - { name: form.type, alias: sales_admin_items }
+
+    sales_admin.items.form.type.api:
+        class: %sales_admin.items.form.type.api.class%
+        tags:
+          - { name: form.type, alias:  sales_admin_items_api }
+
+    sales_admin.items.form.handler:
+        class: %sales_admin.items.form.handler.class%
+        scope: request
+        arguments:
+            - "@sales_admin.items.form"
+            - "@request"
+            - "@doctrine.orm.entity_manager"
+
+    sales_admin.items.form:
+        class: Symfony\Component\Form\Form
+        factory_method:  createNamed
+        factory_service: form.factory
+        arguments:
+            - "sales_admin_items_form"
+            - "sales_admin_items"
